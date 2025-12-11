@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>История</title>
+</head>
+
+<body>
+
+<h1>История форматирования</h1>
+
+<form method="get" th:action="@{/secure/history}">
+    <input type="text" name="text" th:value="${text}" placeholder="Поиск по тексту">
+
+    <select name="formatId">
+        <option value="">Все форматы</option>
+        <option th:each="f : ${formats}"
+                th:value="${f.id}"
+                th:selected="${formatId == f.id}"
+                th:text="${f.formatType}"></option>
+    </select>
+
+    <button type="submit">Фильтр</button>
+</form>
+
+<hr>
+
+<div th:each="h : ${history}">
+    <div style="margin-bottom:20px; padding:10px; border:1px solid #ccc;">
+        <b>Дата:</b> <span th:text="${h.createdAt}"></span><br>
+        <b>Формат:</b> <span th:text="${h.format.formatType}"></span><br>
+        <b>Исходный текст:</b>
+        <pre th:text="${h.originalText}"></pre>
+        <b>Результат:</b>
+        <pre th:text="${h.formattedText}"></pre>
+    </div>
+</div>
+
+</body>
+</html>

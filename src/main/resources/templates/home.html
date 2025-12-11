@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Speech Formatter</title>
+    <style>
+        /* Общий фон и шрифты */
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f0f2f5;
+            color: #1a1a1a;
+        }
+
+        /* Хедер */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #2563eb;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        header button {
+            background-color: #3b82f6;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            margin-right: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        header button:hover {
+            background-color: #eff6ff;
+            color: #1a1a1a;
+        }
+
+        /* Сайдбар */
+        aside {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 250px;
+            height: calc(100vh - 60px);
+            background-color: #f8fafc;
+            border-right: 1px solid #e5e7eb;
+            padding: 20px 0;
+        }
+
+        aside h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 20px 0 10px 15px;
+        }
+
+        aside button {
+            display: block;
+            width: 90%;
+            margin: 5px auto;
+            padding: 10px 15px;
+            border: none;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            cursor: pointer;
+            border-radius: 4px;
+            text-align: left;
+        }
+
+        aside button:hover {
+            background-color: #eff6ff;
+        }
+
+        /* Основная область */
+        main {
+            margin-left: 250px;
+            padding: 100px 40px 40px 40px; /* сверху 100px из-за хедера */
+            max-width: 800px;
+        }
+
+        main h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        form textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            font-size: 16px;
+            line-height: 1.6;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        form select {
+            margin-top: 10px;
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #d1d5db;
+        }
+
+        form button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #2563eb;
+        }
+
+        /* Результат */
+        .result {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            white-space: pre-wrap; /* сохраняет переносы */
+        }
+
+        /* Сообщения об ошибках */
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <button>Файл</button>
+    <button>Правка</button>
+    <button>Вид</button>
+    <button>Формат</button>
+    <button>Справка</button>
+</header>
+
+<aside>
+    <h2>Статья</h2>
+    <button>Сохранить</button>
+    <button>Вырезать</button>
+    <button>Аудио в текст</button>
+    <button>Форматирование</button>
+    <button>Открыть</button>
+    <button>История</button>
+</aside>
+
+<main>
+
+
+
+    <form th:action="@{/secure/format}" method="post" th:object="${textForFormatingDTO}">
+    <textarea th:field="*{text}" placeholder="Введите текст или вставьте из буфера"></textarea>
+        <div class="error" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></div>
+
+        <select th:field="*{format}">
+            <option value="" disabled selected>Выберите формат</option>
+            <option th:each="f : ${formats}"
+                    th:value="${f.id}"
+                    th:text="${f.formatType}">
+            </option>
+        </select>
+        <div class="error" th:if="${#fields.hasErrors('format')}" th:errors="*{format}"></div>
+
+        <button type="submit">Форматировать</button>
+    </form>
+
+    <h2>Аудио в текст</h2>
+    <form th:action="@{/secure/recognize}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".wav" required />
+        <button type="submit">Распознать</button>
+    </form>
+
+    <div th:if="${recognizedText}" th:text="${recognizedText}"></div>
+
+
+    <div class="result" th:if="${result}" th:text="${result}"></div>
+</main>
+</body>
+</html>

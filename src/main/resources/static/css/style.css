@@ -1,0 +1,144 @@
+/* Общие стили */
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: #f0f2f5;
+    color: #1a1a1a;
+}
+
+/* Header */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #2563eb;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 100;
+}
+
+header button {
+    background-color: #3b82f6;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    margin-right: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+header button:hover {
+    background-color: #eff6ff;
+    color: #2563eb;
+}
+
+/* Sidebar */
+aside {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 250px;
+    height: calc(100vh - 60px);
+    background-color: #f8fafc;
+    border-right: 1px solid #e5e7eb;
+    padding: 20px 0 0 15px;
+    box-sizing: border-box;
+}
+
+aside h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+aside button {
+    display: block;
+    width: 90%;
+    background: none;
+    border: none;
+    padding: 10px 0;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+aside button:hover {
+    background-color: #eff6ff;
+    outline: 2px solid #3b82f6;
+}
+
+/* Main content */
+main {
+    margin-left: 250px;
+    margin-top: 60px;
+    padding: 40px;
+    max-width: 800px;
+    background-color: #ffffff;
+    min-height: calc(100vh - 60px);
+    box-sizing: border-box;
+}
+
+main h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+main p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+/* Форма */
+form {
+    margin-top: 20px;
+}
+
+textarea, select, input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+button.submit-btn {
+    background-color: #2563eb;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button.submit-btn:hover {
+    background-color: #3b82f6;
+}
+
+/* Результат */
+.result {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f8fafc;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+}
+
+/* Ошибки валидации */
+.error {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
