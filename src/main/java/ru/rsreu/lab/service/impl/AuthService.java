@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import ru.rsreu.lab.model.dto.SignInRequestDTO;
 import ru.rsreu.lab.model.dto.SignUpRequestDTO;
 import ru.rsreu.lab.model.entity.AppUser;
-import ru.rsreu.lab.service.AppUserService;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +17,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AuthService {
-    private final AppUserService appUserService;
+    private final AppUserServiceImplJpa appUserService;
     private final PasswordEncoder encoder;
 
     public AppUser signUp(SignUpRequestDTO requestDTO) {

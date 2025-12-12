@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.rsreu.lab.model.entity.History;
-import ru.rsreu.lab.service.FormatService;
+import ru.rsreu.lab.service.impl.FormatServiceImplJpa;
 import ru.rsreu.lab.service.impl.HistoryService;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 public class HistoryController {
 
     private final HistoryService historyService;
-    private final FormatService formatService;
+    private final FormatServiceImplJpa formatService;
 
     @GetMapping
     public String historyPage(

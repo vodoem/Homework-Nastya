@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import ru.rsreu.lab.model.dto.HistoryDTO;
-import ru.rsreu.lab.service.FormatService;
+import ru.rsreu.lab.service.impl.FormatServiceImplJpa;
 import ru.rsreu.lab.service.impl.GigaChatService;
 
 import ru.rsreu.lab.model.dto.TextForFormatingDTO;
@@ -23,7 +23,7 @@ import ru.rsreu.lab.service.impl.SpeechRecognitionService;
 public class HomeController {
 
     private final HistoryService historyService;
-    private final FormatService formatService;
+    private final FormatServiceImplJpa formatService;
     private final SpeechRecognitionService speechRecognitionService;
     private final GigaChatService gigaChatService;
 

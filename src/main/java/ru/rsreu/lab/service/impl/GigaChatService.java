@@ -12,15 +12,19 @@ import chat.giga.model.completion.CompletionResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.rsreu.lab.model.entity.Format;
-import ru.rsreu.lab.service.FormatService;
+
+import java.time.Duration;
+import java.time.Instant;
 
 @Service
 public class GigaChatService {
     private final GigaChatClient client;
-    private final FormatService formatService;
+    private final FormatServiceImplJpa formatService;
+    private final LLMCacheService cacheService; // Добавляем кэш сервис
 
     public GigaChatService(@Value("${gigachat.authKey}") String authKey,
-                           FormatService formatService) { // <-- ИНТЕРФЕЙС
+                           FormatServiceImplJpa formatService,
+                           LLMCacheService cacheService) {
         this.client = GigaChatClient.builder()
                 .verifySslCerts(false)
                 .authClient(AuthClient.builder()
@@ -31,11 +35,26 @@ public class GigaChatService {
                         .build())
                 .build();
         this.formatService = formatService;
+        this.cacheService = cacheService;
     }
 
     public String formatText(String text, Long formatId) {
-        Format format = formatService.findById(formatId);
+        Instant start = Instant.now();
 
+        // 1. Получаем формат и промпт
+        Format format = formatService.findById(formatId);
+        String prompt = format.getContent(); // промпт из БД
+
+        // 2. Генерируем ключ кэша
+        String cacheKey = cacheService.generateCacheKey(text, formatId, prompt);
+
+        // 3. Проверяем кэш
+        var cachedResult = cacheService.getFromCache(cacheKey);
+        if (cachedResult.isPresent()) {
+            return cachedResult.get().getFormattedText();
+        }
+
+        // 4. Если нет в кэше - вызываем API
         String content = format.getFormatType() + " " + text;
 
         CompletionRequest request = CompletionRequest.builder()
@@ -46,9 +65,33 @@ public class GigaChatService {
                         .build())
                 .build();
 
-
         CompletionResponse response = client.completions(request);
+        String result = response.choices().getFirst().message().content();
 
-        return response.choices().getFirst().message().content();
+        Duration apiDuration = Duration.between(start, Instant.now());
+
+        // 5. Сохраняем в кэш для будущих запросов
+        cacheService.saveToCache(
+                cacheKey,
+                text,
+                result,
+                formatId,
+                format.getFormatType(),
+                prompt,
+                "GigaChat",
+                estimateTokens(result) // Примерная оценка токенов
+        );
+
+        return result;
     }
+
+    /**
+     * Примерная оценка количества токенов
+     * (В реальности лучше использовать точный расчет или данные от API)
+     */
+    private Integer estimateTokens(String text) {
+        // Примерно 1 токен = 4 символа для русского языка
+        return (int) Math.ceil(text.length() / 4.0);
+    }
+
 }

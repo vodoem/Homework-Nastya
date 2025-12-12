@@ -6,10 +6,8 @@ import ru.rsreu.lab.model.dto.HistoryDTO;
 import ru.rsreu.lab.model.entity.AppUser;
 import ru.rsreu.lab.model.entity.Format;
 import ru.rsreu.lab.model.entity.History;
-import ru.rsreu.lab.repository.HistoryRepositoryCustom;
 import ru.rsreu.lab.repository.jpa.HistoryJpaRepository;
-import ru.rsreu.lab.service.AppUserService;
-import ru.rsreu.lab.service.FormatService;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,8 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HistoryService {
     private final HistoryJpaRepository historyRepository;
-    private final FormatService formatService; // теперь это интерфейс
-    private final AppUserService userService; // теперь это интерфейс
+    private final FormatServiceImplJpa formatService; // теперь это интерфейс
+    private final AppUserServiceImplJpa userService; // теперь это интерфейс
 
     public History save(HistoryDTO dto) {
         Format format = formatService.findById(dto.getFormatId());
