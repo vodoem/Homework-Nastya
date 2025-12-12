@@ -1,4 +1,4 @@
-package ru.rsreu.lab.service;
+package ru.rsreu.lab.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
@@ -15,9 +15,7 @@ import java.io.InputStream;
 @RequiredArgsConstructor
 public class SpeechRecognitionService {
 
-    private static final String MODEL_PATH = "src/main/resources/vosk-model-small-ru-0.22"; // путь к модели
-
-
+    private static final String MODEL_PATH = "src/main/resources/vosk-model-small-ru-0.22";
 
     public String recognize(MultipartFile file) throws Exception {
         File original = File.createTempFile("original", ".wav");
@@ -41,12 +39,11 @@ public class SpeechRecognitionService {
                 }
             }
 
-            // добавляем финальный результат
             JSONObject finalObj = new JSONObject(recognizer.getResult());
             text.append(finalObj.getString("text"));
         }
 
-        return text.toString().trim(); // возвращаем чистый текст
+        return text.toString().trim();
     }
 
 }

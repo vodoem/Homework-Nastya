@@ -1,3 +1,4 @@
+/*
 package ru.rsreu.lab.repository.mongo;
 
 import lombok.RequiredArgsConstructor;
@@ -79,3 +80,4 @@ public class HistoryRepositoryMongoImpl implements HistoryRepositoryCustom {
                 .toList();
     }
 }
+*/

@@ -1,8 +1,7 @@
-package ru.rsreu.lab.service.impl.jpa;
+package ru.rsreu.lab.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import ru.rsreu.lab.model.entity.Format;
 import ru.rsreu.lab.repository.jpa.FormatRepository;

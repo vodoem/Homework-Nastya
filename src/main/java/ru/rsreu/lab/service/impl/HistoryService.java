@@ -1,4 +1,4 @@
-package ru.rsreu.lab.service;
+package ru.rsreu.lab.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -7,6 +7,7 @@ import ru.rsreu.lab.model.entity.AppUser;
 import ru.rsreu.lab.model.entity.Format;
 import ru.rsreu.lab.model.entity.History;
 import ru.rsreu.lab.repository.HistoryRepositoryCustom;
+import ru.rsreu.lab.repository.jpa.HistoryJpaRepository;
 import ru.rsreu.lab.service.AppUserService;
 import ru.rsreu.lab.service.FormatService;
 
@@ -16,7 +17,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class HistoryService {
-    private final HistoryRepositoryCustom historyRepository;
+    private final HistoryJpaRepository historyRepository;
     private final FormatService formatService; // теперь это интерфейс
     private final AppUserService userService; // теперь это интерфейс
 

@@ -1,8 +1,8 @@
-package ru.rsreu.lab.service.impl.mongo;
+/*
+package ru.rsreu.lab.service.mongo;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import ru.rsreu.lab.model.document.FormatDocument;
 import ru.rsreu.lab.model.entity.Format;
@@ -39,4 +39,4 @@ public class FormatServiceImplMongo implements FormatService {
                 .content(document.getContent())
                 .build();
     }
-}
+}*/

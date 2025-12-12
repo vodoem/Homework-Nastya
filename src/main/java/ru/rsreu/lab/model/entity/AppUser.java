@@ -15,6 +15,7 @@ import java.util.List;
 public class AppUser {
     public static final String DEFAULT_GENERATOR = "default_seq";
 
+    // вынесу в абстракт
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = DEFAULT_GENERATOR)
     private Long id;

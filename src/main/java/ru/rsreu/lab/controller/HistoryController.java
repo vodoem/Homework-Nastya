@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.rsreu.lab.model.entity.History;
 import ru.rsreu.lab.service.FormatService;
-import ru.rsreu.lab.service.HistoryService;
+import ru.rsreu.lab.service.impl.HistoryService;
 
 import java.util.List;
 

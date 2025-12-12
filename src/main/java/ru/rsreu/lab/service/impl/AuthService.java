@@ -1,4 +1,4 @@
-package ru.rsreu.lab.service;
+package ru.rsreu.lab.service.impl;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import ru.rsreu.lab.model.dto.SignInRequestDTO;
 import ru.rsreu.lab.model.dto.SignUpRequestDTO;
 import ru.rsreu.lab.model.entity.AppUser;
+import ru.rsreu.lab.service.AppUserService;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +18,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AuthService {
-    private final AppUserService appUserService; // теперь интерфейс
+    private final AppUserService appUserService;
     private final PasswordEncoder encoder;
 
     public AppUser signUp(SignUpRequestDTO requestDTO) {
@@ -36,7 +37,7 @@ public class AuthService {
         return appUserService.save(newUser);
     }
 
-    public AppUser signIn(@Valid SignInRequestDTO requestDTO) {
+    public AppUser signIn(SignInRequestDTO requestDTO) {
         Optional<AppUser> userOpt = appUserService.findByLogin(requestDTO.getLogin());
         if (userOpt.isEmpty()) {
             throw new IllegalArgumentException("Неверный логин или пароль");

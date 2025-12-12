@@ -1,8 +1,7 @@
-package ru.rsreu.lab.service;
+package ru.rsreu.lab.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ru.rsreu.lab.model.entity.AppUser;

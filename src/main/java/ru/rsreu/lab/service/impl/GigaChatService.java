@@ -1,4 +1,4 @@
-package ru.rsreu.lab.service;
+package ru.rsreu.lab.service.impl;
 
 import chat.giga.client.GigaChatClient;
 import chat.giga.client.auth.AuthClient;

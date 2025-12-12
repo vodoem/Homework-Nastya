@@ -1,3 +1,4 @@
+/*
 package ru.rsreu.lab.model.document;
 
 import lombok.*;
@@ -16,3 +17,4 @@ public class FormatDocument {
     private String formatType;
     private String content;
 }
+*/

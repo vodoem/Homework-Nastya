@@ -1,8 +1,8 @@
-package ru.rsreu.lab.service.impl.mongo;
+/*
+package ru.rsreu.lab.service.mongo;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ru.rsreu.lab.model.document.AppUserDocument;
@@ -54,4 +54,4 @@ public class AppUserServiceImplMongo implements AppUserService {
                 .password(user.getPassword())
                 .build();
     }
-}
+}*/

@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface HistoryJpaRepository extends JpaRepository<History, Long> {
 
+    // Optional
     List<History> findByUser(AppUser user);
 
     List<History> findByUserAndFormatId(AppUser user, Long formatId);

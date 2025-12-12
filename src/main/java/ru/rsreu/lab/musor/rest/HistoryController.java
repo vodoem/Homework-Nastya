@@ -4,7 +4,7 @@ package ru.rsreu.lab.controller.rest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.rsreu.lab.entity.History;
-import ru.rsreu.lab.service.HistoryService;
+import ru.rsreu.lab.service.impl.HistoryService;
 
 import java.util.List;
 

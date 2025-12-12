@@ -1,3 +1,4 @@
+/*
 package ru.rsreu.lab.model.document;
 
 import lombok.AllArgsConstructor;
@@ -24,3 +25,4 @@ public class HistoryDocument {
     private String userLogin;
     private LocalDateTime createdAt;
 }
+*/

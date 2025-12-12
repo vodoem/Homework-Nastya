@@ -1,3 +1,4 @@
+/*
 package ru.rsreu.lab.repository.mongo;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -8,3 +9,4 @@ import java.util.List;
 public interface HistoryMongoRepository extends MongoRepository<HistoryDocument, String> {
     List<HistoryDocument> findByUserLogin(String login);
 }
+*/

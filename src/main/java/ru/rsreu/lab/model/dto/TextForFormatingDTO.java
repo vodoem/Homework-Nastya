@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class TextForFormatingDTO {
-    @NotBlank(message = "Поле текста не должно быть пустым")
     @Size(min = 3, max = 5000, message = "Текст должен быть от 3 до 5000 символов")
     private String text;
 

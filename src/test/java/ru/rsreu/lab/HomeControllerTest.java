@@ -1,4 +1,3 @@
-/*
 package ru.rsreu.lab;
 
 import org.junit.jupiter.api.Test;
@@ -30,14 +29,13 @@ public class HomeControllerTest {
     @Test
     public void indexContainsTitle() throws Exception {
         mockMvc.perform(get("/"))
-                .andExpect(content().string(org.hamcrest.Matchers.containsString("Speech Formatter")));
+                .andExpect(content().string(org.hamcrest.Matchers.containsString("сервис форматирования")));
     }
 
 
     @Test
     public void indexContainsSidebar() throws Exception {
         mockMvc.perform(get("/"))
-                .andExpect(content().string(org.hamcrest.Matchers.containsString("Аудио в текст")));
+                .andExpect(content().string(org.hamcrest.Matchers.containsString("Регистрация")));
     }
 }
-*/

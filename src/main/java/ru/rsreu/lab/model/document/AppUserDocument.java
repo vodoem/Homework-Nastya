@@ -1,3 +1,4 @@
+/*
 package ru.rsreu.lab.model.document;
 
 import lombok.*;
@@ -18,3 +19,4 @@ public class AppUserDocument {
     private String password;
     private List<String> historyIds; // можно хранить связи через ID, если нужно
 }
+*/

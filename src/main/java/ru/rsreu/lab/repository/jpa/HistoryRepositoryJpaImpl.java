@@ -1,3 +1,4 @@
+/*
 package ru.rsreu.lab.repository.jpa;
 
 import lombok.RequiredArgsConstructor;
@@ -41,3 +42,4 @@ public class HistoryRepositoryJpaImpl implements HistoryRepositoryCustom {
         return jpa.findByUserAndOriginalTextContainingAndFormatId(user, text, formatId);
     }
 }
+*/
