@@ -1,4 +1,4 @@
-package ru.rsreu.lab.service.impl;
+package ru.rsreu.lab.service.gigaChat;
 
 import chat.giga.client.GigaChatClient;
 import chat.giga.client.auth.AuthClient;
@@ -10,19 +10,20 @@ import chat.giga.model.completion.ChatMessageRole;
 import chat.giga.model.completion.CompletionRequest;
 import chat.giga.model.completion.CompletionResponse;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 import ru.rsreu.lab.model.entity.Format;
+import ru.rsreu.lab.service.FormatServiceImplJpa;
+import ru.rsreu.lab.service.LLMCacheService;
 
 import java.time.Duration;
 import java.time.Instant;
 
-@Service
-public class GigaChatService {
+
+public class GigaChatServiceImpl implements GigaChatService {
     private final GigaChatClient client;
     private final FormatServiceImplJpa formatService;
     private final LLMCacheService cacheService; // Добавляем кэш сервис
 
-    public GigaChatService(@Value("${gigachat.authKey}") String authKey,
+    public GigaChatServiceImpl(@Value("${gigachat.authKey}") String authKey,
                            FormatServiceImplJpa formatService,
                            LLMCacheService cacheService) {
         this.client = GigaChatClient.builder()
@@ -38,6 +39,7 @@ public class GigaChatService {
         this.cacheService = cacheService;
     }
 
+    @Override
     public String formatText(String text, Long formatId) {
         Instant start = Instant.now();
 

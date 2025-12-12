@@ -1,4 +1,4 @@
-package ru.rsreu.lab.service.impl;
+package ru.rsreu.lab.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

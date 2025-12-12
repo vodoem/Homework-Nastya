@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.rsreu.lab.model.dto.SignInRequestDTO;
 import ru.rsreu.lab.model.dto.SignUpRequestDTO;
-import ru.rsreu.lab.service.impl.AuthService;
+import ru.rsreu.lab.service.AuthService;
 
 
 @Controller
