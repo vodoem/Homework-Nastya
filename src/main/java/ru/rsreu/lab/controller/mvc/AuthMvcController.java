@@ -1,4 +1,4 @@
-package ru.rsreu.lab.controller;
+package ru.rsreu.lab.controller.mvc;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -7,14 +7,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.rsreu.lab.model.dto.SignInRequestDTO;
 import ru.rsreu.lab.model.dto.SignUpRequestDTO;
-import ru.rsreu.lab.service.AuthService;
+import ru.rsreu.lab.service.AuthMvcService;
 
 
 @Controller
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-public class AuthController {
-    private final AuthService authService;
+public class AuthMvcController {
+    private final AuthMvcService authService;
 
     @GetMapping("/registration")
     public String register(Model model) {

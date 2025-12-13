@@ -1,4 +1,4 @@
-package ru.rsreu.lab.controller;
+package ru.rsreu.lab.controller.mvc;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

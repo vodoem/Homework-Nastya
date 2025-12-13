@@ -1,7 +1,6 @@
 package ru.rsreu.lab.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ru.rsreu.lab.model.entity.AppUser;
@@ -16,7 +15,8 @@ public class AppUserServiceImplJpa {
 
     public AppUser getCurrentUser() {
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
-        return appUserRepository.findByLogin(login).orElseThrow();
+        return appUserRepository.findByLogin(login)
+                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
     }
 
     public Optional<AppUser> findByLogin(String login) {
@@ -25,5 +25,10 @@ public class AppUserServiceImplJpa {
 
     public AppUser save(AppUser user) {
         return appUserRepository.save(user);
+    }
+
+    public AppUser getById(long id) {
+        return appUserRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
     }
 }

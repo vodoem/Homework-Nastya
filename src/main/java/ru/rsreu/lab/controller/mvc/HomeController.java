@@ -1,4 +1,4 @@
-package ru.rsreu.lab.controller;
+package ru.rsreu.lab.controller.mvc;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
