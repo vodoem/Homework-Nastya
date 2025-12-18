@@ -9,10 +9,12 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@Profile("!client")
 public class SecurityConfig {
 
     @Bean
@@ -20,31 +22,10 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/",
-                                "/auth/login",
-                                "/auth/register",
-                                "/auth/registration",
-                                "/css/**",
-                                "/img/**"
-                        ).permitAll()
-                        .requestMatchers("/secure/**").authenticated()
                         .anyRequest().permitAll()
                 )
-                .formLogin(login -> login
-                        .loginPage("/auth/login")
-                        .loginProcessingUrl("/auth/login")
-                        .usernameParameter("login")
-                        .passwordParameter("password")
-                        .defaultSuccessUrl("/secure/home", true)
-                        .permitAll()
-                )
-
-                .logout(logout -> logout
-                        .logoutUrl("/auth/logout")
-                        .logoutSuccessUrl("/auth/login")
-                        .permitAll()
-                );
+                .formLogin(AbstractHttpConfigurer::disable)
+                .logout(AbstractHttpConfigurer::disable);
 
         return http.build();
     }
