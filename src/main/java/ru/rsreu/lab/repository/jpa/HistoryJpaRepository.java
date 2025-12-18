@@ -1,14 +1,12 @@
 package ru.rsreu.lab.repository.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import ru.rsreu.lab.model.entity.AppUser;
 import ru.rsreu.lab.model.entity.History;
 
 import java.util.List;
 
 
-@RepositoryRestResource(path = "history")
 public interface HistoryJpaRepository extends JpaRepository<History, Long> {
 
     // Optional
