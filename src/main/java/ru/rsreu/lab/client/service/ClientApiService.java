@@ -1,4 +1,4 @@
-package ru.rsreu.lab.service;
+package ru.rsreu.lab.client.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,27 +18,27 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class RestClientService {
+public class ClientApiService {
 
     private final RestTemplate restTemplate;
 
-    @Value("${app.api-base-url}")
-    private String apiBaseUrl;
+    @Value("${client.server-url}")
+    private String serverUrl;
 
     public List<Format> loadFormats() {
-        Format[] formats = restTemplate.getForObject(apiBaseUrl + "/api/formats", Format[].class);
+        Format[] formats = restTemplate.getForObject(serverUrl + "/api/formats", Format[].class);
         return formats == null ? Collections.emptyList() : Arrays.asList(formats);
     }
 
-    public Optional<HistoryResponseDTO> sendFormattingRequest(TextForFormatingDTO dto, String login) {
+    public Optional<HistoryResponseDTO> sendFormatRequest(TextForFormatingDTO dto, String login) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("X-User-Login", login);
 
-        HttpEntity<TextForFormatingDTO> request = new HttpEntity<>(dto, headers);
+        HttpEntity<TextForFormatingDTO> entity = new HttpEntity<>(dto, headers);
         HistoryResponseDTO response = restTemplate.postForObject(
-                apiBaseUrl + "/api/history",
-                request,
+                serverUrl + "/api/history",
+                entity,
                 HistoryResponseDTO.class
         );
 
@@ -47,11 +47,10 @@ public class RestClientService {
 
     public List<HistoryResponseDTO> loadHistory(String login) {
         HistoryResponseDTO[] history = restTemplate.getForObject(
-                apiBaseUrl + "/api/history?login={login}",
+                serverUrl + "/api/history?login={login}",
                 HistoryResponseDTO[].class,
                 login
         );
-
         return history == null ? Collections.emptyList() : Arrays.asList(history);
     }
 }
