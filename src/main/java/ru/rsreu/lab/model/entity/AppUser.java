@@ -2,6 +2,7 @@ package ru.rsreu.lab.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "AppUser")
+@JsonIgnoreProperties("history")
 public class AppUser {
     public static final String DEFAULT_GENERATOR = "default_seq";
 

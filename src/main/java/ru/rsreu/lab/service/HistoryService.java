@@ -20,8 +20,12 @@ public class HistoryService {
     private final AppUserServiceImplJpa userService; // теперь это интерфейс
 
     public History save(HistoryDTO dto) {
+        return saveForUser(dto, null);
+    }
+
+    public History saveForUser(HistoryDTO dto, String login) {
         Format format = formatService.findById(dto.getFormatId());
-        AppUser user = userService.getCurrentUser();
+        AppUser user = resolveUser(login);
 
         History history = History.builder()
                 .originalText(dto.getOriginalText())
@@ -35,7 +39,11 @@ public class HistoryService {
     }
 
     public List<History> search(String text, Long formatId) {
-        AppUser user = userService.getCurrentUser();
+        return searchForUser(text, formatId, null);
+    }
+
+    public List<History> searchForUser(String text, Long formatId, String login) {
+        AppUser user = resolveUser(login);
 
         if ((text == null || text.isBlank()) && formatId == null) {
             return historyRepository.findByUser(user);
@@ -50,5 +58,18 @@ public class HistoryService {
         }
 
         return historyRepository.findByUserAndFormatId(user, formatId);
+    }
+
+    private AppUser resolveUser(String login) {
+        if (login != null && !login.isBlank()) {
+            return userService.findByLogin(login)
+                    .orElseThrow(() -> new IllegalArgumentException("Пользователь с логином " + login + " не найден"));
+        }
+
+        try {
+            return userService.getCurrentUser();
+        } catch (Exception ex) {
+            throw new IllegalStateException("Не удалось определить текущего пользователя", ex);
+        }
     }
 }
