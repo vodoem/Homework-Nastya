@@ -40,6 +40,7 @@ public class SecurityConfig {
                                 "/swagger-ui/**",            // Swagger UI
                                 "/v3/api-docs/**",           // OpenAPI docs
                                 "/auth/**",                  // MVC аутентификация
+                                "/rest-client/**",           // Страница демонстрации REST клиента
                                 "/",
                                 "/css/**",
                                 "/img/**"
