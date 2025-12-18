@@ -9,10 +9,12 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@Profile("!client")
 public class SecurityConfig {
 
     @Bean
