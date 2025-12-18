@@ -2,6 +2,7 @@ package ru.rsreu.lab.client.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,7 @@ import ru.rsreu.lab.client.service.ClientApiService;
 import ru.rsreu.lab.model.dto.TextForFormatingDTO;
 
 @Controller
+@Profile("client")
 @RequiredArgsConstructor
 public class ClientPageController {
 
@@ -50,4 +52,3 @@ public class ClientPageController {
         return "client/index";
     }
 }
-

@@ -2,6 +2,7 @@ package ru.rsreu.lab.client.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Profile("client")
 @RequiredArgsConstructor
 public class ClientApiService {
 
@@ -54,4 +56,3 @@ public class ClientApiService {
         return history == null ? Collections.emptyList() : Arrays.asList(history);
     }
 }
-
