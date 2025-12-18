@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>REST-клиент</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0 0 40px 0;
+            color: #111827;
+        }
+
+        header {
+            background: linear-gradient(90deg, #2563eb, #1d4ed8);
+            padding: 18px 32px;
+            color: white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 32px auto 0;
+            padding: 0 16px;
+            box-sizing: border-box;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 20px;
+        }
+
+        p.lead {
+            margin: 0 0 12px 0;
+            color: #374151;
+            line-height: 1.6;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        select,
+        textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            margin-bottom: 10px;
+            background-color: #f9fafb;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        button.secondary {
+            background-color: #6b7280;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        button.secondary:hover {
+            background-color: #4b5563;
+        }
+
+        .alert {
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .alert.success {
+            background-color: #ecfdf3;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .alert.error {
+            background-color: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fecdd3;
+        }
+
+        .alert.info {
+            background-color: #eff6ff;
+            color: #1e3a8a;
+            border: 1px solid #bfdbfe;
+        }
+
+        .token-box {
+            background-color: #0f172a;
+            color: #e5e7eb;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-family: "SFMono-Regular", Consolas, monospace;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .validation-error {
+            color: #b91c1c;
+            font-size: 13px;
+            margin-top: -6px;
+            margin-bottom: 8px;
+        }
+
+        .result-box {
+            background-color: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 14px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .meta {
+            color: #6b7280;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>REST-клиент для проверки API</h1>
+</header>
+
+<main>
+    <div class="card">
+        <p class="lead">Эта страница использует <strong>RestTemplate</strong>, чтобы обращаться к REST API основного
+            приложения. Сначала получите токен, затем выберите формат и отправьте текст на сервер.</p>
+
+        <div th:if="${successMessage}" class="alert success" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage}" class="alert error" th:text="${errorMessage}"></div>
+    </div>
+
+    <div class="card">
+        <h2>1. Аутентификация через REST</h2>
+        <form th:object="${loginForm}" th:action="@{/rest-client/login}" method="post">
+            <label for="login">Логин</label>
+            <input id="login" type="text" th:field="*{login}" placeholder="Введите логин">
+            <div class="validation-error" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
+
+            <label for="password">Пароль</label>
+            <input id="password" type="password" th:field="*{password}" placeholder="Введите пароль">
+            <div class="validation-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+
+            <div class="actions">
+                <button type="submit">Войти (POST /api/auth/login)</button>
+                <button type="submit" th:formaction="@{/rest-client/register}" class="secondary">Зарегистрироваться
+                    и получить токен
+                </button>
+            </div>
+        </form>
+
+        <div th:if="${accessToken}" class="alert info" style="margin-top: 14px;">
+            <div>Текущий токен (хранится в сессии страницы):</div>
+            <div class="token-box" th:text="${accessToken}"></div>
+            <form th:action="@{/rest-client/logout}" method="post" style="margin-top: 10px;">
+                <button type="submit" class="secondary">Удалить токен</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>2. Форматирование текста через REST API</h2>
+        <div th:if="${accessToken == null}" class="alert info">
+            Получите токен выше, чтобы загрузить список форматов и отправить текст на обработку.
+        </div>
+
+        <div th:if="${accessToken != null}">
+            <div th:if="${formatsError}" class="alert error" th:text="${formatsError}"></div>
+            <div th:if="${formats}" class="alert info">
+                Форматы загружаются через GET <code>/api/formats</code> с заголовком <code>Authorization: Bearer ...</code>.
+            </div>
+
+            <form th:object="${formatForm}" th:action="@{/rest-client/format}" method="post">
+                <label for="format">Формат</label>
+                <select id="format" th:field="*{formatId}">
+                    <option value="" disabled th:selected="${formatForm.formatId} == null">Выберите формат</option>
+                    <option th:each="f : ${formats}" th:value="${f.id}"
+                            th:text="${f.formatType}"></option>
+                </select>
+                <div class="validation-error" th:if="${#fields.hasErrors('formatId')}" th:errors="*{formatId}"></div>
+
+                <label for="originalText">Исходный текст</label>
+                <textarea id="originalText" th:field="*{originalText}" placeholder="Вставьте текст для форматирования"></textarea>
+                <div class="validation-error" th:if="${#fields.hasErrors('originalText')}" th:errors="*{originalText}"></div>
+
+                <div class="actions">
+                    <button type="submit">Отправить на форматирование (POST /api/text/format)</button>
+                </div>
+            </form>
+
+            <div th:if="${result}" style="margin-top: 16px;">
+                <h3>Результат:</h3>
+                <div class="result-box" th:text="${result}"></div>
+                <div class="meta" th:if="${historyResponse}">
+                    <span th:text="'ID записи: ' + ${historyResponse.id}"></span>
+                    <span th:if="${historyResponse.createdAt}" th:text="' • Создано: ' + ${historyResponse.createdAt}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
